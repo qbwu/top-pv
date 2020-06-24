@@ -30,7 +30,6 @@ MemAllocator::MemAllocator(size_t block_sz) {
     }
     auto mod = block_sz & (BLOCK_SIZE - 1);
     _block_sz = block_sz + (mod > 0 ? (BLOCK_SIZE - mod) : 0);
-    std::cerr << "Use block size: " << _block_sz << "\n";
 }
 
 char* MemAllocator::_alloc_fallback(size_t bytes) {
@@ -38,6 +37,8 @@ char* MemAllocator::_alloc_fallback(size_t bytes) {
     if (bytes > _block_sz / 4) {
         return _alloc_new_block(bytes);
     }
+    _mem_fragment += _left_bytes;
+
     _alloc_ptr = _alloc_new_block(_block_sz);
     _left_bytes = _block_sz;
     return _alloc_inplace(bytes);

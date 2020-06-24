@@ -55,6 +55,7 @@ public:
     }
 
     void clear() {
+        _allocator.log_profile();
         _allocator.clear();
         _records.clear();
     }

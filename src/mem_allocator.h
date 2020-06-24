@@ -53,8 +53,17 @@ public:
 
         _left_bytes = 0;
         _mem_usage = 0;
+        _mem_fragment = 0;
+        _mem_dirty = 0;
     }
 
+    void log_profile() const {
+        std::cerr << "mem_usage: " << _mem_usage
+                  << ", mem_dirty: " << _mem_dirty
+                  << ", mem_fregment: " << _mem_fragment
+                  << ", block_size: " << _block_sz
+                  << ", block_num: " << _blocks.size() << std::endl;
+    }
 private:
     char* _alloc_fallback(size_t bytes);
     char* _alloc_new_block(size_t block_bytes);
@@ -64,6 +73,7 @@ private:
         auto *result = _alloc_ptr;
         _alloc_ptr += bytes;
         _left_bytes -= bytes;
+        _mem_dirty += bytes;
         return result;
     }
 
@@ -72,6 +82,8 @@ private:
 
     size_t _left_bytes = 0;
     size_t _mem_usage = 0;
+    size_t _mem_dirty = 0;
+    size_t _mem_fragment = 0;
     size_t _block_sz = 0;
 };
 
