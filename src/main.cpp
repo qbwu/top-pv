@@ -156,7 +156,7 @@ void reduce1(const toppv::MemTable &mem_table, uint32_t file_no, size_t &red_num
     std::cerr << "reduce1[" << file_no << "] elasped: "
         << std::chrono::duration_cast<std::chrono::milliseconds>(
                 std::chrono::steady_clock::now() - start).count() << "ms, "
-        << "number of lines: " << num << "\n";
+        << "number of lines: " << num << std::endl;
 
     red_num = num;
 }
@@ -210,7 +210,7 @@ void reduce2(uint32_t file_no, toppv::TopKCollector &collector,
         << std::chrono::duration_cast<std::chrono::milliseconds>(
                 std::chrono::steady_clock::now() - start).count() << "ms, "
         << "number of files: " << file_no << ", "
-        << "number of lines: " << num << "\n";
+        << "number of lines: " << num << std::endl;
 
     red_num = num;
 }

@@ -60,8 +60,8 @@ public:
     }
 
     struct Record {
-        size_t len;
-        const char *data;
+        const size_t len;
+        const char *const data;
 
         bool operator<(const Record &rhs) const {
             auto res = memcmp(this->data, rhs.data, std::min(this->len, rhs.len));
