@@ -46,7 +46,7 @@ ReadStatus LineReader::scan(std::fstream& fst) {
             res = _skip_line(fst);
             break;
         default:
-            std::cerr << "Unkown state: " << _state << "\n";
+            std::cerr << "unkown state: " << _state << std::endl;
             res = READ_ERROR;
     }
     return res;
