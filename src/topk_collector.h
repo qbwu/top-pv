@@ -37,21 +37,14 @@ public:
             _map.emplace(count, std::move(elem));
             return true;
         }
+        assert(_map.size() > 0 && _map.size() == _k);
         auto min = _map.rbegin()->first;
-        if (count < min) {
+        if (count <= min) {
             return false;
         }
 
         _map.emplace(count, std::move(elem));
-        auto iter = _map.lower_bound(min);
-
-        size_t dist = std::distance(_map.begin(), iter);
-        assert(dist <= _k);
-
-        if (count == min || dist < _k) {
-            return true;
-        }
-        _map.erase(min);
+        _map.erase(--_map.end());
         return true;
     }
 
