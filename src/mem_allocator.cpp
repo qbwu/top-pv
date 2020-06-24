@@ -14,6 +14,7 @@
 #include "mem_allocator.h"
 
 #include <iostream>
+#include <exception>
 
 namespace {
 
@@ -24,7 +25,9 @@ const size_t BLOCK_SIZE = 1 << 12;
 namespace toppv {
 
 MemAllocator::MemAllocator(size_t block_sz) {
-    assert(block_sz > 0);
+    if (block_sz == 0) {
+        throw std::invalid_argument("the block size must be greater than 0");
+    }
     auto mod = block_sz & (BLOCK_SIZE - 1);
     _block_sz = block_sz + (mod > 0 ? (BLOCK_SIZE - mod) : 0);
     std::cerr << "Use block size: " << _block_sz << "\n";
