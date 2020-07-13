@@ -20,7 +20,8 @@
 
 namespace toppv {
 
-class FileIter {
+class FileIter : public std::iterator<
+                 const std::string, std::forward_iterator_tag> {
 public:
     explicit FileIter(const std::string &fname) : _fst(fname) {
         if (!_fst.good()) {
@@ -43,6 +44,10 @@ public:
 
     const std::string& operator*() const {
         return _line;
+    }
+
+    const std::string* operator->() const {
+        return &_line;
     }
 
     FileIter& operator++() {
